@@ -4,11 +4,16 @@ A quickstart app for integrators looking to use HubSpot's OAuth 2.0. Written in 
 
 _**Note:** This app does not store any data in a persistent way, so restarting the app will clear the retrieved access tokens._
 
-### Prerequesites
+## Prerequesites
 
-This app requires Node.js and a package manager ([yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm)) to run.
+Before running the quickstart app, make sure you have:
 
-### Running the app
+1. Node.js and a package manager ([yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm)) installed
+2. A free HubSpot developer account ([sign up](https://app.hubspot.com/signup/developers))
+3. An app associated with your developer account ([create an app](https://developers.hubspot.com/docs/faq/how-do-i-create-an-app-in-hubspot))
+4. A HubSpot portal to test the app on (you can use an existing one, or [create a test portal](https://developers.hubspot.com/docs/faq/how-do-i-create-a-test-portal))
+
+## Running the app
 
 1. Clone the repository:
    ```bash
@@ -26,7 +31,7 @@ This app requires Node.js and a package manager ([yarn](https://yarnpkg.com/en/d
    ```
 4. Open your browser to `http://localhost:3000/install` to kick off the OAuth 2.0 flow
 
-### What the app does
+## What the app does
 
 1. **Redirect to HubSpot's OAuth 2.0 server**
 
