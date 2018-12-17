@@ -11,6 +11,21 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 const SCOPES = ['contacts'].join(' ');
+const OPTIONAL_SCOPES = [
+  "automation",
+  "business-intelligence",
+  "content",
+  "e-commerce",
+  "files",
+  "forms",
+  "hubdb",
+  "integration-sync",
+  "social",
+  "tickets",
+  "timeline",
+  "transactional-email",
+].join(' ')
+
 const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
 
 const refreshTokenStore = {};
@@ -30,6 +45,7 @@ const authUrl =
   'https://app.hubspot.com/oauth/authorize' +
   `?client_id=${encodeURIComponent(CLIENT_ID)}` + // app's client ID
   `&scope=${encodeURIComponent(SCOPES)}` + // scopes being requested by the app
+  `&optional_scope=${encodeURIComponent(OPTIONAL_SCOPES)}` +
   `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`; // where to send the user after the consent page
 
 // Redirect the user from the installation page to
