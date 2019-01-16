@@ -50,7 +50,6 @@ app.get('/install', (req, res) => {
 // Receive the authorization code from the OAuth 2.0 Server,
 // and process it based on the query parameters that are passed
 app.get('/oauth-callback', async (req, res) => {
-  console.log(req.sessionID);
   console.log('Step 3: Handling the request sent by the server');
 
   // Received a user authorization code, so now combine that with the other
@@ -71,7 +70,7 @@ app.get('/oauth-callback', async (req, res) => {
     console.log('Step 4: Exchanging authorization code for an access token and refresh token');
     const token = await exchangeForTokens(req.sessionID, authCodeProof);
     if (token.message) {
-      return res.redirect(`/error?msg=${error.message}`);
+      return res.redirect(`/error?msg=${token.message}`);
     }
 
     // Once the tokens have been retrieved, use them to make a query
