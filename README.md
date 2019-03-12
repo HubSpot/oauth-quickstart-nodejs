@@ -25,7 +25,9 @@ _**Note:** You must be a super-admin for the portal that you want to install the
    ```
    CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
    CLIENT_SECRET='yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
+   SCOPE='contacts,forms'
    ```
+   You can also add a `SCOPE` environment variable to specify a custom set of scopes. The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
 3. From the root of the repository, run:
    ```bash
    $ yarn install
