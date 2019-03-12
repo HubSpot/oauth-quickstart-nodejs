@@ -9,7 +9,7 @@ RUN npm install
 
 ENV CLIENT_ID=""
 ENV CLIENT_SECRET=""
-ENV SCOPES=""
+ENV SCOPE=""
 
 EXPOSE 3000
 
