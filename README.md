@@ -8,32 +8,14 @@ _**Note:** This app does not store any data in a persistent way, so restarting t
 
 Before running the quickstart app, make sure you have:
 
-1. Node.js and a package manager ([yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm)) installed
+1. The tools required to run using the method of your choice:
+   - [In a Docker container](#option-1-running-in-a-docker-container): Docker (>=1.13)
+   - [Using Node.js](#option-2-running-natively): Node.js (>=6) and [yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm)
 2. A free HubSpot developer account ([sign up](https://app.hubspot.com/signup/developers))
 3. An app associated with your developer account ([create an app](https://developers.hubspot.com/docs/faq/how-do-i-create-an-app-in-hubspot))
 4. A HubSpot portal to install the app in (you can use an existing one, or [create a test portal](https://developers.hubspot.com/docs/faq/how-do-i-create-a-test-portal))
 
 _**Note:** You must be a super-admin for the portal that you want to install the app in._
-
-## Running the app
-
-1. Clone the repository:
-   ```bash
-   $ git clone git@github.com:HubSpot/oauth-quickstart-nodejs.git
-   ```
-2. Create a **`.env`** file in the root of the repository with the ID and secret for your app (found on the app settings page), eg:
-   ```
-   CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-   CLIENT_SECRET='yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
-   SCOPE='contacts,forms'
-   ```
-   You can also add a `SCOPE` environment variable to specify a custom set of scopes. The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
-3. From the root of the repository, run:
-   ```bash
-   $ yarn install
-   $ yarn start
-   ```
-4. Open your browser to `http://localhost:3000/install` to kick off the OAuth 2.0 flow
 
 ## What the app does
 
@@ -52,3 +34,39 @@ _**Note:** You must be a super-admin for the portal that you want to install the
 
    When the app has received an access token, it will redirect you to `http://localhost:3000/`. It will then use the access token to
    make a query to HubSpot's Contacts API, and display the retrieved contact's name on the page.
+
+## Running the app
+
+### Option 1: Running in a Docker container
+
+1. Build an image of the quickstart app
+
+```
+$ docker build -t hs-oauth-quickstart:latest git://github.com/HubSpot/oauth-quickstart-nodejs.git
+```
+
+2. Run a container with the new image
+
+```
+$ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_ID=$CLIENT_ID -e SCOPES=contacts,forms hs-oauth-quickstart:latest
+```
+
+### Option 2: Running natively
+
+1. Clone the repository:
+   ```bash
+   $ git clone git@github.com:HubSpot/oauth-quickstart-nodejs.git
+   ```
+2. Create a **`.env`** file in the root of the repository with the ID and secret for your app (found on the app settings page), eg:
+   ```
+   CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+   CLIENT_SECRET='yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
+   SCOPE='contacts,forms'
+   ```
+   You can also add a `SCOPE` environment variable to specify a custom set of scopes. The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
+3. From the root of the repository, run:
+   ```bash
+   $ yarn install
+   $ yarn start
+   ```
+4. Open your browser to `http://localhost:3000/install` to kick off the OAuth 2.0 flow
