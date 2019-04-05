@@ -18,7 +18,11 @@ const refreshTokenStore = {};
 const accessTokenCache = new NodeCache({ deleteOnExpire: true });
 
 // Use a session to keep track of client ID
-app.use(session({ secret: CLIENT_SECRET, resave: false, saveUninitialized: true }));
+app.use(session({
+  secret: Math.random().toString(36).substring(2),
+  resave: false,
+  saveUninitialized: true
+}));
 
 //================================//
 //   Running the OAuth 2.0 Flow   //
