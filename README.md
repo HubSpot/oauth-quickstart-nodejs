@@ -48,7 +48,7 @@ $ docker build -t hs-oauth-quickstart:latest git://github.com/HubSpot/oauth-quic
 2. Run a container with the new image
 
 ```
-$ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_ID=$CLIENT_ID -e SCOPES=contacts,forms hs-oauth-quickstart:latest
+$ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_ID=$CLIENT_ID -e SCOPE=contacts,forms hs-oauth-quickstart:latest
 ```
 
 ### Option 2: Running natively
