@@ -4,25 +4,12 @@ A quickstart app for integrators looking to use HubSpot's OAuth 2.0. Written in 
 
 _**Note:** This app does not store any data in a persistent way, so restarting the app will clear the retrieved access tokens._
 
-## Prerequisites
-
-Before running the quickstart app, make sure you have:
-
-1. The tools required to run using the method of your choice:
-   - [In a Docker container](#option-1-running-in-a-docker-container): Docker (>=1.13)
-   - [Using Node.js](#option-2-running-natively): Node.js (>=6) and [yarn](https://yarnpkg.com/en/docs/install) or [NPM](https://www.npmjs.com/get-npm)
-2. A free HubSpot developer account ([sign up](https://app.hubspot.com/signup/developers))
-3. An app associated with your developer account ([create an app](https://developers.hubspot.com/docs/faq/how-do-i-create-an-app-in-hubspot))
-4. A HubSpot portal to install the app in (you can use an existing one, or [create a test portal](https://developers.hubspot.com/docs/faq/how-do-i-create-a-test-portal))
-
-_**Note:** You must be a super-admin for the portal that you want to install the app in._
-
 ## What the app does
 
 1. **Redirect to HubSpot's OAuth 2.0 server**
 
    When you open your browser to `http://localhost:3000/install`, the app will redirect you to the authorization page on
-   HubSpot's server. Here you will choose which portal you'd like to install the app in and give consent for it to act
+   HubSpot's server. Here you will choose which account you'd like to install the app in and give consent for it to act
    on your behalf. When this is complete, HubSpot will redirect you back to the app.
 
 2. **Exchange an authorization code for access tokens**
@@ -34,24 +21,21 @@ _**Note:** You must be a super-admin for the portal that you want to install the
 
    When the app has received an access token, it will redirect you to `http://localhost:3000/`. It will then use the access token to
    make a query to HubSpot's Contacts API, and display the retrieved contact's name on the page.
+   
+## Prerequisites
 
-## Running the app
+Before running the quickstart app, make sure you have:
 
-### Option 1: Running in a Docker container
+1. The tools required to run using the method of your choice:
+   - Option 1: Running locally using Node.js: [Node.js (>=6)](https://nodejs.org) and [yarn](https://yarnpkg.com/en/docs/install)
+   - Option 2: Running in a Docker container: [Docker (>=1.13)](https://docs.docker.com/install/)
+2. A free HubSpot developer account ([sign up](https://app.hubspot.com/signup/developers))
+3. An app associated with your developer account ([create an app](https://developers.hubspot.com/docs/faq/how-do-i-create-an-app-in-hubspot))
+4. A HubSpot account to install the app in (you can use an existing one, or [create a test account](https://developers.hubspot.com/docs/faq/how-do-i-create-a-test-account))
 
-1. Build an image of the quickstart app
+_**Note:** You must be a super-admin for the account that you want to install the app in._
 
-```
-$ docker build -t hs-oauth-quickstart:latest git://github.com/HubSpot/oauth-quickstart-nodejs.git
-```
-
-2. Run a container with the new image
-
-```
-$ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_ID=$CLIENT_ID -e SCOPE=contacts,forms hs-oauth-quickstart:latest
-```
-
-### Option 2: Running natively
+## Option 1: Running locally using Node.js
 
 1. Clone the repository:
    ```bash
@@ -70,3 +54,19 @@ $ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_I
    $ yarn start
    ```
 4. Open your browser to `http://localhost:3000/install` to kick off the OAuth 2.0 flow
+
+---
+
+## Option 2: Running in a Docker container
+
+1. Build an image of the quickstart app
+
+```
+$ docker build -t hs-oauth-quickstart:latest git://github.com/HubSpot/oauth-quickstart-nodejs.git
+```
+
+2. Run a container with the new image
+
+```
+$ docker run --init -it -p 3000:3000 -e CLIENT_SECRET=$CLIENT_SECRET -e CLIENT_ID=$CLIENT_ID -e SCOPE=contacts,forms hs-oauth-quickstart:latest
+```
