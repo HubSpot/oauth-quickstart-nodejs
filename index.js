@@ -3,14 +3,15 @@ const express = require('express');
 const request = require('request-promise-native');
 const NodeCache = require('node-cache');
 const session = require('express-session');
+const opn = require('open');
 
 const PORT = 3000;
 const app = express();
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-// Supports a list of scopes as a string delimited by ',' or ' ' or '%20'
-const SCOPES = (process.env.SCOPE.split(/ |, ?|%20/) || ['contacts']).join(' ');
+const CLIENT_ID = '$CLIENT_ID';
+const CLIENT_SECRET = '$CLIENT_SECRET';
+
+const SCOPES = ['contacts'];
 
 const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
 
@@ -23,7 +24,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
+ 
 //================================//
 //   Running the OAuth 2.0 Flow   //
 //================================//
@@ -176,8 +177,7 @@ app.get('/', async (req, res) => {
     res.write(`<h4>Access token: ${accessToken}</h4>`);
     displayContactName(res, contact);
   } else {
-    res.write(`<h4>Access token:</h4>`);
-    res.write(`<a href="/install">Install</a>`);
+    res.write(`<a href="/install"><h3>Install the app</h3></a>`);
   }
   res.end();
 });
@@ -189,3 +189,4 @@ app.get('/error', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+opn(`http://localhost:${PORT}`);
