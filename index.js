@@ -8,10 +8,14 @@ const opn = require('open');
 const PORT = 3000;
 const app = express();
 
-const CLIENT_ID = '$CLIENT_ID';
-const CLIENT_SECRET = '$CLIENT_SECRET';
+const CLIENT_ID = process.env.CLIENT_ID || '{CLIENT_ID}';
+const CLIENT_SECRET = process.env.CLIENT_SECRET || '{CLIENT_SECRET}';
 
 const SCOPES = ['contacts'];
+
+if (process.env.SCOPE) {
+    SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
+}
 
 const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
 
