@@ -4,9 +4,20 @@ const request = require('request-promise-native');
 const NodeCache = require('node-cache');
 const session = require('express-session');
 const opn = require('open');
+const app = express();
 
 const PORT = 3000;
-const app = express();
+
+const refreshTokenStore = {};
+const accessTokenCache = new NodeCache({ deleteOnExpire: true });
+
+//===========================================================================//
+//  HUBSPOT APP CONFIGURATION
+//
+//  All the following values must match configuration settings in your app.
+//  They will be used to build the OAuth URL, which users hit to begin
+//  installation. If they don't match your app's configuration, users will
+//  see an error page.
 
 // Replace the following with values from your app config, 
 // or set them as environment variables before running.
@@ -23,8 +34,7 @@ if (process.env.SCOPE) {
 // On successful install, users will be redirected to /oauth-callback
 const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
 
-const refreshTokenStore = {};
-const accessTokenCache = new NodeCache({ deleteOnExpire: true });
+//===========================================================================//
 
 // Use a session to keep track of client ID
 app.use(session({
@@ -49,10 +59,12 @@ const authUrl =
 // Redirect the user from the installation page to
 // the authorization URL
 app.get('/install', (req, res) => {
-  console.log('Initiating OAuth 2.0 flow with HubSpot');
-  console.log("Step 1: Redirecting user to HubSpot's OAuth 2.0 server");
+  console.log('');
+  console.log('=== Initiating OAuth 2.0 flow with HubSpot ===');
+  console.log('');
+  console.log("===> Step 1: Redirecting user to your app's OAuth URL");
   res.redirect(authUrl);
-  console.log('Step 2: User is being prompted for consent by HubSpot');
+  console.log('===> Step 2: User is being prompted for consent by HubSpot');
 });
 
 // Step 2
@@ -64,12 +76,12 @@ app.get('/install', (req, res) => {
 // Receive the authorization code from the OAuth 2.0 Server,
 // and process it based on the query parameters that are passed
 app.get('/oauth-callback', async (req, res) => {
-  console.log('Step 3: Handling the request sent by the server');
+  console.log('===> Step 3: Handling the request sent by the server');
 
   // Received a user authorization code, so now combine that with the other
   // required values and exchange both for an access token and a refresh token
   if (req.query.code) {
-    console.log('  > Received an authorization token');
+    console.log('       > Received an authorization token');
 
     const authCodeProof = {
       grant_type: 'authorization_code',
@@ -81,7 +93,7 @@ app.get('/oauth-callback', async (req, res) => {
 
     // Step 4
     // Exchange the authorization code for an access token and refresh token
-    console.log('Step 4: Exchanging authorization code for an access token and refresh token');
+    console.log('===> Step 4: Exchanging authorization code for an access token and refresh token');
     const token = await exchangeForTokens(req.sessionID, authCodeProof);
     if (token.message) {
       return res.redirect(`/error?msg=${token.message}`);
@@ -108,10 +120,10 @@ const exchangeForTokens = async (userId, exchangeProof) => {
     refreshTokenStore[userId] = tokens.refresh_token;
     accessTokenCache.set(userId, tokens.access_token, Math.round(tokens.expires_in * 0.75));
 
-    console.log('  > Received an access token and refresh token');
+    console.log('       > Received an access token and refresh token');
     return tokens.access_token;
   } catch (e) {
-    console.error(`  > Error exchanging ${exchangeProof.grant_type} for access token`);
+    console.error(`       > Error exchanging ${exchangeProof.grant_type} for access token`);
     return JSON.parse(e.response.body);
   }
 };
@@ -146,7 +158,8 @@ const isAuthorized = (userId) => {
 //====================================================//
 
 const getContact = async (accessToken) => {
-  console.log('Retrieving a contact from HubSpot using an access token');
+  console.log('');
+  console.log('=== Retrieving a contact from HubSpot using an access token ===');
   try {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
@@ -196,5 +209,5 @@ app.get('/error', (req, res) => {
   res.end();
 });
 
-app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`=== Starting your app on http://localhost:${PORT} ===`));
 opn(`http://localhost:${PORT}`);
