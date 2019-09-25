@@ -8,15 +8,19 @@ const opn = require('open');
 const PORT = 3000;
 const app = express();
 
+// Replace the following with values from your app config, 
+// or set them as environment variables before running.
 const CLIENT_ID = process.env.CLIENT_ID || '{CLIENT_ID}';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || '{CLIENT_SECRET}';
 
+// Scopes for this app will default to `contacts`
+// To request others, set them as environment variables
 const SCOPES = ['contacts'];
-
 if (process.env.SCOPE) {
     SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
 }
 
+// On successful install, users will be redirected to /oauth-callback
 const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
 
 const refreshTokenStore = {};
