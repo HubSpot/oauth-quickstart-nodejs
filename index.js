@@ -15,8 +15,8 @@ const accessTokenCache = new NodeCache({ deleteOnExpire: true });
 //  HUBSPOT APP CONFIGURATION
 //
 //  All the following values must match configuration settings in your app.
-//  They will be used to build the OAuth URL, which users hit to begin
-//  installation. If they don't match your app's configuration, users will
+//  They will be used to build the OAuth URL, which users visit to begin
+//  installing. If they don't match your app's configuration, users will
 //  see an error page.
 
 // Replace the following with values from your app config, 
@@ -25,7 +25,7 @@ const CLIENT_ID = process.env.CLIENT_ID || '{CLIENT_ID}';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || '{CLIENT_SECRET}';
 
 // Scopes for this app will default to `contacts`
-// To request others, set them as environment variables
+// To request others, set the SCOPE environment variable
 const SCOPES = ['contacts'];
 if (process.env.SCOPE) {
     SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
@@ -160,6 +160,7 @@ const isAuthorized = (userId) => {
 const getContact = async (accessToken) => {
   console.log('');
   console.log('=== Retrieving a contact from HubSpot using an access token ===');
+  console.log('===> Replace the following request.get() to test other API calls');
   try {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
