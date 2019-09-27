@@ -11,6 +11,10 @@ const PORT = 3000;
 const refreshTokenStore = {};
 const accessTokenCache = new NodeCache({ deleteOnExpire: true });
 
+if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET) {
+    throw new Error('Missing CLIENT_ID or CLIENT_SECRET environment variable.')
+}
+
 //===========================================================================//
 //  HUBSPOT APP CONFIGURATION
 //
@@ -19,14 +23,14 @@ const accessTokenCache = new NodeCache({ deleteOnExpire: true });
 //  installing. If they don't match your app's configuration, users will
 //  see an error page.
 
-// Replace the following with values from your app config, 
+// Replace the following with the values from your app auth config, 
 // or set them as environment variables before running.
-const CLIENT_ID = process.env.CLIENT_ID || '{CLIENT_ID}';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || '{CLIENT_SECRET}';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 // Scopes for this app will default to `contacts`
-// To request others, set the SCOPE environment variable
-const SCOPES = ['contacts'];
+// To request others, set the SCOPE environment variable instead
+let SCOPES = ['contacts'];
 if (process.env.SCOPE) {
     SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
 }
