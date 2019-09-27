@@ -159,13 +159,14 @@ const isAuthorized = (userId) => {
 
 const getContact = async (accessToken) => {
   console.log('');
-  console.log('=== Retrieving a contact from HubSpot using an access token ===');
-  console.log('===> Replace the following request.get() to test other API calls');
+  console.log('=== Retrieving a contact from HubSpot using the access token ===');
   try {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     };
+    console.log('===> Replace the following request.get() to test other API calls');
+    console.log('===> request.get(\'https://api.hubapi.com/contacts/v1/lists/all/contacts/all?count=1\')');
     const result = await request.get('https://api.hubapi.com/contacts/v1/lists/all/contacts/all?count=1', {
       headers: headers
     });
