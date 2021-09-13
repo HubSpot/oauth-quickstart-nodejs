@@ -28,9 +28,9 @@ if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET) {
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
-// Scopes for this app will default to `contacts`
+// Scopes for this app will default to `crm.objects.contacts.read`
 // To request others, set the SCOPE environment variable instead
-let SCOPES = ['contacts'];
+let SCOPES = ['crm.objects.contacts.read'];
 if (process.env.SCOPE) {
     SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
 }
