@@ -31,13 +31,15 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 // Scopes for this app will default to `crm.objects.contacts.read`
 // To request others, set the SCOPE environment variable instead
 let SCOPES = ['crm.objects.contacts.read'];
-if (process.env.SCOPE) {
-    SCOPES = (process.env.SCOPE.split(/ |, ?|%20/)).join(' ');
+if (process.env.SCOPES) {
+    SCOPES = (process.env.SCOPES.split(/ |, ?|%20/)).join(' ');
 }
 
 // On successful install, users will be redirected to /oauth-callback
-const REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
-
+let REDIRECT_URI = `http://localhost:${PORT}/oauth-callback`;
+if (process.env.REDIRECT_URI) {
+    REDIRECT_URI = process.env.REDIRECT_URI.replace("${PORT}", PORT);
+}
 //===========================================================================//
 
 // Use a session to keep track of client ID
