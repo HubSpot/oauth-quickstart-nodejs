@@ -21,7 +21,7 @@ _**Note:** This app does not store any data in a persistent way, so restarting t
 
    When the app has received an access token, it will redirect you to `http://localhost:3000/`. It will then use the access token to
    make a query to HubSpot's Contacts API, and display the retrieved contact's name on the page.
-   
+
 ## Prerequisites
 
 Before running the quickstart app, make sure you have:
@@ -45,7 +45,7 @@ _**Note:** You must be a super-admin for the account that you want to install th
    ```
    CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
    CLIENT_SECRET='yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
-   SCOPE='crm.contacts.read,forms'
+   SCOPE='crm.objects.contacts.read'
    ```
    You can also add a `SCOPE` environment variable to specify a custom set of scopes. The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
 3. From the root of the repository, run:
