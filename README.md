@@ -45,9 +45,11 @@ _**Note:** You must be a super-admin for the account that you want to install th
    ```
    CLIENT_ID='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
    CLIENT_SECRET='yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'
-   SCOPE='crm.contacts.read,forms'
+   SCOPE='crm.objects.contacts.read,forms'
    ```
-   You can also add a `SCOPE` environment variable to specify a custom set of scopes. The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
+   The `SCOPE` environment variable is optional in this example. 
+   If not set, this application will use the scope `crm.objects.contacts.read`.
+   The scopes can be separated by a comma, space, or URL-encoded space (`%20`)
 3. From the root of the repository, run:
    ```bash
    $ yarn install
