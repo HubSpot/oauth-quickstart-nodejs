@@ -64,7 +64,7 @@ _**Note:** You must be a super-admin for the account that you want to install th
 1. Build an image of the quickstart app
 
 ```
-$ docker build -t hs-oauth-quickstart:latest git://github.com/HubSpot/oauth-quickstart-nodejs.git
+$ docker build -t hs-oauth-quickstart:latest https://github.com/HubSpot/oauth-quickstart-nodejs.git
 ```
 
 2. Run a container with the new image
