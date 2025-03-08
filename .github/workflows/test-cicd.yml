@@ -4,8 +4,9 @@
 name: Test CICD
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - devenv
 
 jobs:
   build:
