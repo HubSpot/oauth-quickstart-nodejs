@@ -16,8 +16,14 @@ _**Note:** This app does not store any data in a persistent way, so restarting t
 
    Now that you're back in the app, it will retrieve an access token and a refresh token from HubSpot's server, using an
    The authorization code is provided by HubSpot when you grant the app access.
+   
+   **Note**: The [v3 OAuth API](https://developers.hubspot.com/docs/api-reference/auth-oauth-v3/guide) requires 
+that parameters (`client_id`, `client_secret`, `code`, etc.) are sent in the request body 
+as form URL-encoded data rather than as query parameters. The OAuth v3 endpoints provide enhanced security by ensuring sensitive data like your app's client ID and secret are sent in the 
+request body rather than as URL parameters, preventing them from appearing in 
+server logs.
 
-3. **Retrieve a contact**
+4. **Retrieve a contact**
 
    When the app has received an access token, it will redirect you to `http://localhost:3000/`. It will then use the access token to
    make a query to HubSpot's Contacts API and display the retrieved contact's name on the page.
