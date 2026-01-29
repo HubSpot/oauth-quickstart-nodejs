@@ -115,7 +115,7 @@ app.get('/oauth-callback', async (req, res) => {
 
 const exchangeForTokens = async (userId, exchangeProof) => {
   try {
-    const responseBody = await request.post('https://api.hubapi.com/oauth/v1/token', {
+    const responseBody = await request.post('https://api.hubapi.com/oauth/v3/token', {
       form: exchangeProof
     });
     // Usually, this token data should be persisted in a database and associated with
